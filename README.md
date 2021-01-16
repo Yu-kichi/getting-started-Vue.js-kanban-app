@@ -1,6 +1,12 @@
 # kanban-app
 
-> A kanban Application
+本書に合わせvueCLI3.0.1のバージョン
+
+vue init webpack kanban-appで作成
+
+webpackのテンプレートを使用している
+
+テストは動かない場合あり
 
 ## Build Setup
 

@@ -29,7 +29,7 @@
     </div>
     <div class = "form-actions">
       <KbnButton
-        :disabled = "disabledLoginAction"
+        :disabled = "disableLoginAction"
         @click = "handleClick">
         ログイン
         </KbnButton>
@@ -78,23 +78,22 @@ export default{
           required: required(this.password)
         }
       }
+    },
+    valid () {
+      const validation = this.validation
+      const fields = Object.keys(validation)
+      let valid = true
+      for (let i = 0; i < fields.length; i++) {
+        const field = fields[i]
+        valid = Object.keys(validation[field])
+          .every(key => validation[field][key])
+        if (!valid) { break }
+      }
+      return valid
+    },
+    disableLoginAction () {
+      return !this.valid || this.progress
     }
-  },
-  valid () {
-    const validation = this.validation
-    const fields = Object.keys(validation)
-    let valid = true
-    for (let i = 0; i < fields.length; i++) {
-      const field = fields[i]
-      valid = Object.keys(validation[field])
-        .every(key => validation[field][key])
-      if (!valid) { break }
-    }
-    return valid
-  },
-
-  disabledLoginAction () {
-    return !this.valid || this.progress
   },
 
   methods: {
@@ -102,7 +101,7 @@ export default{
       this.error = ''
     },
     handleClick (ev) {
-      if (this.disabledLoginAction) { return }
+      if (this.disableLoginAction) { return }
 
       this.progress = true
       this.error = ''
